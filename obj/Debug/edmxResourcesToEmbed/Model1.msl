@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbshopRealModelStoreContainer" CdmEntityContainer="dbshopRealEntities1">
+    <EntitySetMapping Name="ProductTypes">
+      <EntityTypeMapping TypeName="dbshopRealModel.ProductType">
+        <MappingFragment StoreEntitySet="ProductType">
+          <ScalarProperty Name="type_id" ColumnName="type_id" />
+          <ScalarProperty Name="type_name" ColumnName="type_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_buy">
+      <EntityTypeMapping TypeName="dbshopRealModel.tb_buy">
+        <MappingFragment StoreEntitySet="tb_buy">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+          <ScalarProperty Name="cus_id" ColumnName="cus_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_customer">
+      <EntityTypeMapping TypeName="dbshopRealModel.tb_customer">
+        <MappingFragment StoreEntitySet="tb_customer">
+          <ScalarProperty Name="cus_id" ColumnName="cus_id" />
+          <ScalarProperty Name="cus_name" ColumnName="cus_name" />
+          <ScalarProperty Name="cus_lname" ColumnName="cus_lname" />
+          <ScalarProperty Name="cus_add" ColumnName="cus_add" />
+          <ScalarProperty Name="cus_tel" ColumnName="cus_tel" />
+          <ScalarProperty Name="bdate" ColumnName="bdate" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_product">
+      <EntityTypeMapping TypeName="dbshopRealModel.tb_product">
+        <MappingFragment StoreEntitySet="tb_product">
+          <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+          <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+          <ScalarProperty Name="pro_num" ColumnName="pro_num" />
+          <ScalarProperty Name="pro_typeid" ColumnName="pro_typeid" />
+          <ScalarProperty Name="pro_desc" ColumnName="pro_desc" />
+          <ScalarProperty Name="pro_image" ColumnName="pro_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

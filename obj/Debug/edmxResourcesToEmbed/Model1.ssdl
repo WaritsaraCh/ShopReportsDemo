@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbshopRealModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="type_id" />
+    </Key>
+    <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type_name" Type="nchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_buy">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pro_id" Type="int" Nullable="false" />
+    <Property Name="cus_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_customer">
+    <Key>
+      <PropertyRef Name="cus_id" />
+    </Key>
+    <Property Name="cus_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cus_name" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="cus_lname" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="cus_add" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="cus_tel" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="bdate" Type="datetime" Nullable="false" />
+    <Property Name="sex" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="username" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="password" Type="nchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_product">
+    <Key>
+      <PropertyRef Name="pro_id" />
+    </Key>
+    <Property Name="pro_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pro_name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="pro_num" Type="int" Nullable="false" />
+    <Property Name="pro_typeid" Type="int" Nullable="false" />
+    <Property Name="pro_desc" Type="nchar" MaxLength="200" Nullable="false" />
+    <Property Name="pro_image" Type="image" />
+  </EntityType>
+  <Association Name="FK_tb_buy_tb_customer">
+    <End Role="tb_customer" Type="Self.tb_customer" Multiplicity="1" />
+    <End Role="tb_buy" Type="Self.tb_buy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_customer">
+        <PropertyRef Name="cus_id" />
+      </Principal>
+      <Dependent Role="tb_buy">
+        <PropertyRef Name="cus_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_buy_tb_product">
+    <End Role="tb_product" Type="Self.tb_product" Multiplicity="1" />
+    <End Role="tb_buy" Type="Self.tb_buy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_product">
+        <PropertyRef Name="pro_id" />
+      </Principal>
+      <Dependent Role="tb_buy">
+        <PropertyRef Name="pro_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_product_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+    <End Role="tb_product" Type="Self.tb_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="type_id" />
+      </Principal>
+      <Dependent Role="tb_product">
+        <PropertyRef Name="pro_typeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbshopRealModelStoreContainer">
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_buy" EntityType="Self.tb_buy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_customer" EntityType="Self.tb_customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_product" EntityType="Self.tb_product" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tb_buy_tb_customer" Association="Self.FK_tb_buy_tb_customer">
+      <End Role="tb_customer" EntitySet="tb_customer" />
+      <End Role="tb_buy" EntitySet="tb_buy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_buy_tb_product" Association="Self.FK_tb_buy_tb_product">
+      <End Role="tb_product" EntitySet="tb_product" />
+      <End Role="tb_buy" EntitySet="tb_buy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_product_ProductType" Association="Self.FK_tb_product_ProductType">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="tb_product" EntitySet="tb_product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

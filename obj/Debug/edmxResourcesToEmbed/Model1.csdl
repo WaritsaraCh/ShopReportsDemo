@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbshopRealModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="type_id" />
+    </Key>
+    <Property Name="type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type_name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tb_product" Relationship="Self.FK_tb_product_ProductType" FromRole="ProductType" ToRole="tb_product" />
+  </EntityType>
+  <EntityType Name="tb_buy">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pro_id" Type="Int32" Nullable="false" />
+    <Property Name="cus_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tb_customer" Relationship="Self.FK_tb_buy_tb_customer" FromRole="tb_buy" ToRole="tb_customer" />
+    <NavigationProperty Name="tb_product" Relationship="Self.FK_tb_buy_tb_product" FromRole="tb_buy" ToRole="tb_product" />
+  </EntityType>
+  <EntityType Name="tb_customer">
+    <Key>
+      <PropertyRef Name="cus_id" />
+    </Key>
+    <Property Name="cus_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cus_name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="cus_lname" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="cus_add" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="cus_tel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="bdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tb_buy" Relationship="Self.FK_tb_buy_tb_customer" FromRole="tb_customer" ToRole="tb_buy" />
+  </EntityType>
+  <EntityType Name="tb_product">
+    <Key>
+      <PropertyRef Name="pro_id" />
+    </Key>
+    <Property Name="pro_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="pro_num" Type="Int32" Nullable="false" />
+    <Property Name="pro_typeid" Type="Int32" Nullable="false" />
+    <Property Name="pro_desc" Type="String" MaxLength="200" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="pro_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="ProductType" Relationship="Self.FK_tb_product_ProductType" FromRole="tb_product" ToRole="ProductType" />
+    <NavigationProperty Name="tb_buy" Relationship="Self.FK_tb_buy_tb_product" FromRole="tb_product" ToRole="tb_buy" />
+  </EntityType>
+  <Association Name="FK_tb_product_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+    <End Role="tb_product" Type="Self.tb_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="type_id" />
+      </Principal>
+      <Dependent Role="tb_product">
+        <PropertyRef Name="pro_typeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_buy_tb_customer">
+    <End Role="tb_customer" Type="Self.tb_customer" Multiplicity="1" />
+    <End Role="tb_buy" Type="Self.tb_buy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_customer">
+        <PropertyRef Name="cus_id" />
+      </Principal>
+      <Dependent Role="tb_buy">
+        <PropertyRef Name="cus_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_buy_tb_product">
+    <End Role="tb_product" Type="Self.tb_product" Multiplicity="1" />
+    <End Role="tb_buy" Type="Self.tb_buy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_product">
+        <PropertyRef Name="pro_id" />
+      </Principal>
+      <Dependent Role="tb_buy">
+        <PropertyRef Name="pro_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbshopRealEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
+    <EntitySet Name="tb_buy" EntityType="Self.tb_buy" />
+    <EntitySet Name="tb_customer" EntityType="Self.tb_customer" />
+    <EntitySet Name="tb_product" EntityType="Self.tb_product" />
+    <AssociationSet Name="FK_tb_product_ProductType" Association="Self.FK_tb_product_ProductType">
+      <End Role="ProductType" EntitySet="ProductTypes" />
+      <End Role="tb_product" EntitySet="tb_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_buy_tb_customer" Association="Self.FK_tb_buy_tb_customer">
+      <End Role="tb_customer" EntitySet="tb_customer" />
+      <End Role="tb_buy" EntitySet="tb_buy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_buy_tb_product" Association="Self.FK_tb_buy_tb_product">
+      <End Role="tb_product" EntitySet="tb_product" />
+      <End Role="tb_buy" EntitySet="tb_buy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
